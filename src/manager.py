@@ -24,15 +24,24 @@ class Manager:
                 return False
         return True
     
-    def get_apartment_costs(self, apartment_key, year, month):
-
+    def get_apartment_costs(self, apartment_key, year=None, month=None):
         amount = 0
-
         for bill in self.bills:
-            if(bill.apartment == apartment_key and bill.settlement_month == month and bill.settlement_year == year):
+            if(year != None):
+                if(month != None):
+                    if(bill.apartment == apartment_key and bill.settlement_month == month and bill.settlement_year == year):
+                        amount += bill.amount_pln
+                elif(bill.apartment == apartment_key and bill.settlement_year == year):
+                    amount += bill.amount_pln
+            elif(bill.apartment == apartment_key):
                 amount += bill.amount_pln
-            
-        if(bill.apartment == None or bill.amount_pln == None):
+        if(bill.apartment != apartment_key):
             return None
+        elif(bill.amount_pln == None):
+            return 0
         else:
             return amount        
+    
+    def create_bill_raport(self):
+        for bill in self.bills:
+            print(bill)
