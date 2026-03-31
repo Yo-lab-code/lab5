@@ -26,7 +26,6 @@ class Manager:
     
     def get_apartment_costs(self, apartment_key, year, month):
 
-        # passKey = False, passYear = False, passMonth = False
         amount = 0
 
         for bill in self.bills:
